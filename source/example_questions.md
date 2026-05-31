@@ -1,0 +1,4 @@
+* QUESTION 1
+	* NIE
+* QUESTION 2
+	* TAK
