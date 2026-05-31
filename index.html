@@ -4,70 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Generator Testu</title>
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f2f5; color: #333; min-height: 100vh; }
-.container { max-width: 800px; margin: 0 auto; padding: 20px; }
-
-/* Upload */
-#upload-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; text-align: center; }
-#upload-screen h1 { font-size: 2rem; margin-bottom: 8px; }
-#upload-screen p { color: #666; margin-bottom: 24px; }
-.drop-zone { border: 2px dashed #bbb; border-radius: 12px; padding: 60px 40px; cursor: pointer; transition: all .2s; background: #fff; width: 100%; max-width: 500px; }
-.drop-zone:hover, .drop-zone.dragover { border-color: #4a90d9; background: #f0f7ff; }
-.drop-zone .icon { font-size: 48px; margin-bottom: 12px; }
-.drop-zone .sub { color: #999; font-size: .9rem; margin-top: 8px; }
-.drop-zone input { display: none; }
-
-/* Test */
-#test-screen { display: none; }
-#test-screen header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid #ddd; }
-#test-screen header h2 { font-size: 1.3rem; }
-.progress { font-size: .9rem; color: #666; }
-.question-card { background: #fff; border-radius: 10px; padding: 20px 24px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
-.question-card .q-num { font-weight: 600; color: #4a90d9; font-size: .85rem; margin-bottom: 6px; }
-.question-card .q-text { font-size: 1.05rem; line-height: 1.5; margin-bottom: 12px; }
-.question-card .options { display: flex; gap: 16px; }
-.question-card .options label { display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 6px 14px; border-radius: 6px; border: 1px solid #ddd; transition: all .15s; user-select: none; }
-.question-card .options label:hover { border-color: #4a90d9; background: #f0f7ff; }
-.question-card .options label:has(input:checked) { border-color: #4a90d9; background: #e8f0fe; }
-.btn-row { text-align: center; margin-top: 24px; }
-.btn { display: inline-block; padding: 12px 36px; border: none; border-radius: 8px; font-size: 1.05rem; font-weight: 600; cursor: pointer; transition: all .2s; }
-.btn-primary { background: #4a90d9; color: #fff; }
-.btn-primary:hover { background: #357abd; }
-.btn-success { background: #27ae60; color: #fff; }
-.btn-success:hover { background: #1e8449; }
-.btn:disabled { opacity: .5; cursor: not-allowed; }
-
-/* Result */
-#result-screen { display: none; text-align: center; min-height: 80vh; display: none; flex-direction: column; align-items: center; justify-content: center; }
-#result-screen .score-circle { width: 160px; height: 160px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.8rem; font-weight: 700; margin: 20px auto; }
-.score-circle.pass { background: #eafaf1; color: #27ae60; border: 4px solid #27ae60; }
-.score-circle.fail { background: #fdedec; color: #e74c3c; border: 4px solid #e74c3c; }
-.score-detail { font-size: 1.1rem; color: #555; margin-bottom: 8px; }
-.score-detail span { font-weight: 600; color: #333; }
-#result-screen h2 { font-size: 1.6rem; margin-bottom: 4px; }
-#result-screen .sub { color: #888; margin-bottom: 24px; }
-
-/* Review */
-.review-toggle { margin-top: 24px; }
-.review-toggle button { background: none; border: 1px solid #ddd; padding: 8px 20px; border-radius: 6px; cursor: pointer; color: #555; }
-.review-toggle button:hover { background: #f5f5f5; }
-#review-content { display: none; margin-top: 16px; text-align: left; }
-#review-content .review-item { background: #fff; border-radius: 8px; padding: 14px 18px; margin-bottom: 8px; border-left: 4px solid #ddd; }
-#review-content .review-item.correct { border-left-color: #27ae60; }
-#review-content .review-item.wrong { border-left-color: #e74c3c; }
-#review-content .review-item.skipped { border-left-color: #f39c12; }
-.review-item .r-num { font-weight: 600; color: #4a90d9; font-size: .85rem; }
-.review-item .r-text { margin: 4px 0; }
-.review-item .r-answer { font-size: .9rem; }
-.review-item .r-answer .correct { color: #27ae60; font-weight: 600; }
-.review-item .r-answer .wrong { color: #e74c3c; font-weight: 600; }
-.review-item .r-answer .user-wrong { text-decoration: line-through; color: #e74c3c; }
-
-footer { text-align: center; padding: 20px; color: #aaa; font-size: .85rem; }
-footer a { color: #888; }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -85,6 +22,22 @@ footer a { color: #888; }
   </div>
 </div>
 
+<!-- Mode -->
+<div id="mode-screen">
+  <h2>Wybierz tryb</h2>
+  <p>Wybierz, w którym trybie chcesz pracować z pytaniami</p>
+  <div class="mode-buttons">
+    <button class="btn btn-mode" data-mode="exam">
+      <span class="mode-title">Tryb egzaminacyjny</span>
+      <span class="mode-desc">Wszystkie pytania na raz, wynik na końcu testu</span>
+    </button>
+    <button class="btn btn-mode" data-mode="study">
+      <span class="mode-title">Tryb nauki</span>
+      <span class="mode-desc">Jedno pytanie na raz, natychmiastowy feedback</span>
+    </button>
+  </div>
+</div>
+
 <!-- Test -->
 <div id="test-screen">
   <header>
@@ -93,7 +46,40 @@ footer a { color: #888; }
   </header>
   <div id="questions"></div>
   <div class="btn-row">
-    <button class="btn btn-success" id="submitBtn" onclick="finishTest()">Zakończ test</button>
+    <button class="btn btn-success" id="submitBtn">Zakończ test</button>
+  </div>
+</div>
+
+<!-- Study -->
+<div id="study-screen">
+  <header>
+    <h2>Tryb nauki</h2>
+    <div class="progress" id="studyProgress">0 / 0</div>
+  </header>
+  <div id="studyActive">
+    <div class="question-card">
+      <div class="q-num" id="studyQNum">Pytanie 1</div>
+      <div class="q-text" id="studyQText"></div>
+      <div class="options" id="studyOptions">
+        <label>
+          <input type="radio" name="study" value="TAK">
+          <span>TAK</span>
+        </label>
+        <label>
+          <input type="radio" name="study" value="NIE">
+          <span>NIE</span>
+        </label>
+      </div>
+      <div id="studyFeedback" class="study-feedback is-hidden"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary is-hidden" id="studyNextBtn">Dalej</button>
+    </div>
+  </div>
+  <div id="studyDone" class="study-done is-hidden">
+    <h3>Koniec pytań</h3>
+    <p>Przerobiono wszystkie pytania z pliku.</p>
+    <button class="btn btn-primary" data-action="back">Powrót do menu</button>
   </div>
 </div>
 
@@ -105,12 +91,12 @@ footer a { color: #888; }
   <div class="score-detail">Poprawne: <span id="correctCount">0</span></div>
   <div class="score-detail">Błędne: <span id="wrongCount">0</span></div>
   <div class="score-detail">Puste: <span id="emptyCount">0</span></div>
-  <div class="score-detail" style="margin-top:8px;font-size:1.2rem;">Punkty: <span id="totalPoints">0</span> / <span id="maxPoints">0</span></div>
+  <div class="score-detail score-detail-extra">Punkty: <span id="totalPoints">0</span> / <span id="maxPoints">0</span></div>
   <div class="btn-row">
-    <button class="btn btn-primary" onclick="backToUpload()">Nowy test</button>
+    <button class="btn btn-primary" data-action="back">Nowy test</button>
   </div>
   <div class="review-toggle">
-    <button onclick="toggleReview()">Pokaż szczegółowy przegląd</button>
+    <button>Pokaż szczegółowy przegląd</button>
   </div>
   <div id="review-content"></div>
 </div>
@@ -120,269 +106,383 @@ footer a { color: #888; }
 <footer>Generator Testu &mdash; aplikacja na podstawie pliku Markdown</footer>
 
 <script>
-let questions = [];
-let currentQuestions = [];
-const QUESTIONS_COUNT = 80;
+(function() {
+  let questions = [];
+  let currentQuestions = [];
+  const QUESTIONS_COUNT = 80;
+  let studyQuestions = [];
+  let studyIndex = 0;
 
-// ---- Markdown parser ----
-function parseQuestions(markdown) {
-  const lines = markdown.split('\n');
-  const result = [];
-  let current = null;
-
-  function saveCurrent() {
-    if (current && current.lines.length > 0) {
-      result.push(current);
-    }
-  }
-
-  for (let i = 0; i < lines.length; i++) {
-    const raw = lines[i];
-    const trimmed = raw.trim();
-    if (!trimmed) continue;
-
-    // Bullet question: "* text" at start of line (not indented)
-    const bulletQ = raw.match(/^\*\s+(.+)/);
-    // Indented bullet answer: whitespace then "* TAK" or "* NIE"
-    const bulletA = raw.match(/^\s+\*\s*(TAK|NIE)\s*/i);
-    // Heading: ## or ###
-    const headingMatch = trimmed.match(/^#{2,3}\s+(.+)/);
-    // Numbered list: 1. text or 1) text
-    const numMatch = trimmed.match(/^\d+[.)]\s+(.+)/);
-    // Inline checkbox: [x] TAK or [ ] TAK
-    const cbMatch = trimmed.match(/\[x?\]\s*(TAK|NIE)/i);
-
-    if (headingMatch) {
-      saveCurrent();
-      current = { lines: [headingMatch[1]], answer: null };
-      continue;
-    }
-
-    if (numMatch) {
-      saveCurrent();
-      current = { lines: [numMatch[1]], answer: null };
-      continue;
-    }
-
-    if (bulletQ) {
-      saveCurrent();
-      current = { lines: [bulletQ[1]], answer: null };
-      continue;
-    }
-
-    if (!current) continue;
-
-    if (bulletA) {
-      current.answer = bulletA[1].toUpperCase();
-      continue;
-    }
-
-    if (cbMatch) {
-      if (trimmed.startsWith('[x]')) current.answer = cbMatch[1].toUpperCase();
-      continue;
-    }
-
-    if (/^(?:odpowiedź|answer|prawidłowa|poprawna)\s*[:]\s*TAK/i.test(trimmed)) current.answer = 'TAK';
-    else if (/^(?:odpowiedź|answer|prawidłowa|poprawna)\s*[:]\s*NIE/i.test(trimmed)) current.answer = 'NIE';
-
-    current.lines.push(trimmed);
-  }
-
-  saveCurrent();
-
-  for (const q of result) {
-    let parts = [];
-    for (const l of q.lines) {
-      const s = l.replace(/\[x\]\s*TAK/ig, '').replace(/\[x\]\s*NIE/ig, '')
-        .replace(/\[\s*\]\s*TAK/ig, '').replace(/\[\s*\]\s*NIE/ig, '')
-        .replace(/^(?:odpowiedź|answer|prawidłowa|poprawna)\s*[:]\s*(TAK|NIE).*/i, '')
-        .trim();
-      if (s && !s.match(/^[-*]\s*$/)) parts.push(s);
-    }
-    q.text = parts.join(' ').replace(/\s+/g, ' ').trim();
-  }
-
-  return result.filter(q => q.text && q.answer);
-}
-
-function shuffleArray(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
-  return arr;
-}
-
-// ---- File handling ----
-const dropZone = document.getElementById('dropZone');
-const fileInput = document.getElementById('fileInput');
-
-dropZone.addEventListener('click', () => fileInput.click());
-
-dropZone.addEventListener('dragover', (e) => {
-  e.preventDefault();
-  dropZone.classList.add('dragover');
-});
-dropZone.addEventListener('dragleave', () => {
-  dropZone.classList.remove('dragover');
-});
-dropZone.addEventListener('drop', (e) => {
-  e.preventDefault();
-  dropZone.classList.remove('dragover');
-  const file = e.dataTransfer.files[0];
-  if (file) loadFile(file);
-});
-
-fileInput.addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  if (file) loadFile(file);
-});
-
-function loadFile(file) {
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    const content = e.target.result;
-    questions = parseQuestions(content);
-    if (questions.length === 0) {
-      alert('Nie znaleziono żadnych pytań w pliku. Sprawdź format (użyj ## dla nagłówków, [x] TAK/NIE dla odpowiedzi).');
-      return;
-    }
-    startTest();
+  const dom = {
+    uploadScreen:  document.getElementById('upload-screen'),
+    modeScreen:    document.getElementById('mode-screen'),
+    testScreen:    document.getElementById('test-screen'),
+    studyScreen:   document.getElementById('study-screen'),
+    resultScreen:  document.getElementById('result-screen'),
+    questions:     document.getElementById('questions'),
+    testTitle:     document.getElementById('testTitle'),
+    progress:      document.getElementById('progress'),
+    studyQNum:     document.getElementById('studyQNum'),
+    studyQText:    document.getElementById('studyQText'),
+    studyProgress: document.getElementById('studyProgress'),
+    studyFeedback: document.getElementById('studyFeedback'),
+    studyNextBtn:  document.getElementById('studyNextBtn'),
+    studyDone:     document.getElementById('studyDone'),
+    studyActive:   document.getElementById('studyActive'),
+    studyOptions:  document.getElementById('studyOptions'),
+    resultTitle:   document.getElementById('resultTitle'),
+    correctCount:  document.getElementById('correctCount'),
+    wrongCount:    document.getElementById('wrongCount'),
+    emptyCount:    document.getElementById('emptyCount'),
+    totalPoints:   document.getElementById('totalPoints'),
+    maxPoints:     document.getElementById('maxPoints'),
+    resultPercent: document.getElementById('resultPercent'),
+    scoreCircle:   document.getElementById('scoreCircle'),
+    reviewContent: document.getElementById('review-content'),
+    submitBtn:     document.getElementById('submitBtn'),
+    dropZone:      document.getElementById('dropZone'),
+    fileInput:     document.getElementById('fileInput'),
   };
-  reader.readAsText(file);
-}
 
-// ---- Test ----
-function startTest() {
-  const shuffled = shuffleArray([...questions]);
-  currentQuestions = shuffled.slice(0, Math.min(QUESTIONS_COUNT, shuffled.length));
+  const SCREENS = {
+    upload: { id: 'upload-screen', display: 'flex' },
+    mode:   { id: 'mode-screen',   display: 'flex' },
+    test:   { id: 'test-screen',   display: 'block' },
+    study:  { id: 'study-screen',  display: 'block' },
+    result: { id: 'result-screen', display: 'flex' },
+  };
 
-  document.getElementById('upload-screen').style.display = 'none';
-  document.getElementById('test-screen').style.display = 'block';
-  document.getElementById('result-screen').style.display = 'none';
+  function showScreen(name) {
+    Object.keys(SCREENS).forEach(key => {
+      const s = SCREENS[key];
+      document.getElementById(s.id).style.display =
+        key === name ? s.display : 'none';
+    });
+  }
 
-  document.getElementById('testTitle').textContent = `Test (${currentQuestions.length} pytań)`;
-  document.getElementById('progress').textContent = `0 / ${currentQuestions.length}`;
+  // ---- Markdown parser ----
+  function parseQuestions(markdown) {
+    const lines = markdown.split('\n');
+    const result = [];
+    let current = null;
 
-  const container = document.getElementById('questions');
-  container.innerHTML = '';
-
-  currentQuestions.forEach((q, idx) => {
-    const card = document.createElement('div');
-    card.className = 'question-card';
-    card.dataset.index = idx;
-    card.innerHTML = `
-      <div class="q-num">Pytanie ${idx + 1}</div>
-      <div class="q-text">${escapeHtml(q.text)}</div>
-      <div class="options">
-        <label>
-          <input type="radio" name="q${idx}" value="TAK" onchange="updateProgress()">
-          <span>TAK</span>
-        </label>
-        <label>
-          <input type="radio" name="q${idx}" value="NIE" onchange="updateProgress()">
-          <span>NIE</span>
-        </label>
-      </div>
-    `;
-    container.appendChild(card);
-  });
-
-  window.scrollTo(0, 0);
-}
-
-function updateProgress() {
-  const answered = document.querySelectorAll('#questions input[type="radio"]:checked').length;
-  document.getElementById('progress').textContent = `${answered} / ${currentQuestions.length}`;
-}
-
-function finishTest() {
-  if (currentQuestions.length === 0) return;
-
-  let correct = 0;
-  let wrong = 0;
-  let empty = 0;
-
-  const results = [];
-
-  currentQuestions.forEach((q, idx) => {
-    const selected = document.querySelector(`input[name="q${idx}"]:checked`);
-    const userAnswer = selected ? selected.value : null;
-
-    if (userAnswer === null) {
-      empty++;
-      results.push({ q, idx, userAnswer, correctAnswer: q.answer, status: 'skipped' });
-    } else if (userAnswer === q.answer) {
-      correct++;
-      results.push({ q, idx, userAnswer, correctAnswer: q.answer, status: 'correct' });
-    } else {
-      wrong++;
-      results.push({ q, idx, userAnswer, correctAnswer: q.answer, status: 'wrong' });
+    function saveCurrent() {
+      if (current && current.lines.length > 0) {
+        result.push(current);
+      }
     }
+
+    for (let i = 0; i < lines.length; i++) {
+      const raw = lines[i];
+      const trimmed = raw.trim();
+      if (!trimmed) continue;
+
+      const bulletQ = raw.match(/^\*\s+(.+)/);
+      const bulletA = raw.match(/^\s+\*\s*(TAK|NIE)\s*/i);
+      const headingMatch = trimmed.match(/^#{2,3}\s+(.+)/);
+      const numMatch = trimmed.match(/^\d+[.)]\s+(.+)/);
+      const cbMatch = trimmed.match(/\[x?\]\s*(TAK|NIE)/i);
+
+      if (headingMatch) {
+        saveCurrent();
+        current = { lines: [headingMatch[1]], answer: null };
+        continue;
+      }
+
+      if (numMatch) {
+        saveCurrent();
+        current = { lines: [numMatch[1]], answer: null };
+        continue;
+      }
+
+      if (bulletQ) {
+        saveCurrent();
+        current = { lines: [bulletQ[1]], answer: null };
+        continue;
+      }
+
+      if (!current) continue;
+
+      if (bulletA) {
+        current.answer = bulletA[1].toUpperCase();
+        continue;
+      }
+
+      if (cbMatch) {
+        if (trimmed.startsWith('[x]')) current.answer = cbMatch[1].toUpperCase();
+        continue;
+      }
+
+      if (/^(?:odpowiedź|answer|prawidłowa|poprawna)\s*[:]\s*TAK/i.test(trimmed)) current.answer = 'TAK';
+      else if (/^(?:odpowiedź|answer|prawidłowa|poprawna)\s*[:]\s*NIE/i.test(trimmed)) current.answer = 'NIE';
+
+      current.lines.push(trimmed);
+    }
+
+    saveCurrent();
+
+    for (const q of result) {
+      let parts = [];
+      for (const l of q.lines) {
+        const s = l.replace(/\[x\]\s*TAK/ig, '').replace(/\[x\]\s*NIE/ig, '')
+          .replace(/\[\s*\]\s*TAK/ig, '').replace(/\[\s*\]\s*NIE/ig, '')
+          .replace(/^(?:odpowiedź|answer|prawidłowa|poprawna)\s*[:]\s*(TAK|NIE).*/i, '')
+          .trim();
+        if (s && !s.match(/^[-*]\s*$/)) parts.push(s);
+      }
+      q.text = parts.join(' ').replace(/\s+/g, ' ').trim();
+    }
+
+    return result.filter(q => q.text && q.answer);
+  }
+
+  function shuffleArray(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  // ---- File handling ----
+  dom.dropZone.addEventListener('click', () => dom.fileInput.click());
+
+  dom.dropZone.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    dom.dropZone.classList.add('dragover');
+  });
+  dom.dropZone.addEventListener('dragleave', () => {
+    dom.dropZone.classList.remove('dragover');
+  });
+  dom.dropZone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    dom.dropZone.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file) loadFile(file);
   });
 
-  const totalPoints = correct - wrong;
-  const maxPoints = currentQuestions.length;
+  dom.fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) loadFile(file);
+  });
 
-  // Show result
-  document.getElementById('test-screen').style.display = 'none';
-  document.getElementById('result-screen').style.display = 'flex';
+  function loadFile(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const content = e.target.result;
+      questions = parseQuestions(content);
+      if (questions.length === 0) {
+        alert('Nie znaleziono żadnych pytań w pliku. Sprawdź format (użyj ## dla nagłówków, [x] TAK/NIE dla odpowiedzi).');
+        return;
+      }
+      showScreen('mode');
+    };
+    reader.readAsText(file);
+  }
 
-  document.getElementById('resultTitle').textContent = `Twój wynik`;
-  document.getElementById('correctCount').textContent = correct;
-  document.getElementById('wrongCount').textContent = wrong;
-  document.getElementById('emptyCount').textContent = empty;
-  document.getElementById('totalPoints').textContent = totalPoints;
-  document.getElementById('maxPoints').textContent = maxPoints;
+  // ---- Test ----
+  function startExam() {
+    const shuffled = shuffleArray([...questions]);
+    currentQuestions = shuffled.slice(0, Math.min(QUESTIONS_COUNT, shuffled.length));
 
-  const pct = Math.round((totalPoints / maxPoints) * 100);
-  document.getElementById('resultPercent').textContent = `${pct}%`;
+    showScreen('test');
 
-  const circle = document.getElementById('scoreCircle');
-  circle.textContent = `${totalPoints}/${maxPoints}`;
-  circle.className = 'score-circle ' + (totalPoints >= 0 ? 'pass' : 'fail');
+    dom.testTitle.textContent = `Test (${currentQuestions.length} pytań)`;
+    dom.progress.textContent = `0 / ${currentQuestions.length}`;
 
-  // Build review
-  const reviewContainer = document.getElementById('review-content');
-  reviewContainer.innerHTML = '<h3 style="margin-bottom:12px;">Szczegółowy przegląd</h3>';
-  results.forEach(r => {
+    dom.questions.innerHTML = '';
+
+    currentQuestions.forEach((q, idx) => {
+      const card = document.createElement('div');
+      card.className = 'question-card';
+      card.dataset.index = idx;
+      card.innerHTML = `
+        <div class="q-num">Pytanie ${idx + 1}</div>
+        <div class="q-text">${escapeHtml(q.text)}</div>
+        <div class="options">
+          <label>
+            <input type="radio" name="q${idx}" value="TAK">
+            <span>TAK</span>
+          </label>
+          <label>
+            <input type="radio" name="q${idx}" value="NIE">
+            <span>NIE</span>
+          </label>
+        </div>
+      `;
+      dom.questions.appendChild(card);
+    });
+
+    window.scrollTo(0, 0);
+  }
+
+  // ---- Study ----
+  function startStudy() {
+    studyQuestions = shuffleArray([...questions]);
+    studyIndex = 0;
+
+    showScreen('study');
+
+    showStudyQuestion();
+  }
+
+  function showStudyQuestion() {
+    const q = studyQuestions[studyIndex];
+
+    dom.studyQNum.textContent = `Pytanie ${studyIndex + 1}`;
+    dom.studyQText.textContent = q.text;
+    dom.studyProgress.textContent = `${studyIndex + 1} / ${studyQuestions.length}`;
+
+    dom.studyFeedback.style.display = 'none';
+    dom.studyNextBtn.style.display = 'none';
+    dom.studyDone.style.display = 'none';
+    dom.studyActive.style.display = 'block';
+
+    const radios = dom.studyOptions.querySelectorAll('input');
+    radios.forEach(r => { r.checked = false; r.disabled = false; });
+
+    radios.forEach(r => {
+      r.onchange = () => answerStudyQuestion(r.value);
+    });
+  }
+
+  function answerStudyQuestion(value) {
+    const q = studyQuestions[studyIndex];
+    const isCorrect = value === q.answer;
+
+    dom.studyOptions.querySelectorAll('input').forEach(r => r.disabled = true);
+
+    if (isCorrect) {
+      dom.studyFeedback.textContent = 'Poprawnie!';
+      dom.studyFeedback.className = 'study-feedback correct';
+    } else {
+      dom.studyFeedback.textContent = `Poprawna odpowiedź: ${q.answer}`;
+      dom.studyFeedback.className = 'study-feedback wrong';
+    }
+    dom.studyFeedback.style.display = 'block';
+
+    dom.studyNextBtn.style.display = 'inline-block';
+  }
+
+  function nextStudyQuestion() {
+    studyIndex++;
+
+    if (studyIndex < studyQuestions.length) {
+      showStudyQuestion();
+    } else {
+      dom.studyActive.style.display = 'none';
+      dom.studyProgress.textContent = 'Koniec';
+      dom.studyDone.style.display = 'block';
+    }
+  }
+
+  function updateProgress() {
+    const answered = dom.questions.querySelectorAll('input[type="radio"]:checked').length;
+    dom.progress.textContent = `${answered} / ${currentQuestions.length}`;
+  }
+
+  function finishTest() {
+    if (currentQuestions.length === 0) return;
+
+    let correct = 0;
+    let wrong = 0;
+    let empty = 0;
+
+    const results = [];
+
+    currentQuestions.forEach((q, idx) => {
+      const selected = document.querySelector(`input[name="q${idx}"]:checked`);
+      const userAnswer = selected ? selected.value : null;
+
+      if (userAnswer === null) {
+        empty++;
+        results.push({ q, idx, userAnswer, correctAnswer: q.answer, status: 'skipped' });
+      } else if (userAnswer === q.answer) {
+        correct++;
+        results.push({ q, idx, userAnswer, correctAnswer: q.answer, status: 'correct' });
+      } else {
+        wrong++;
+        results.push({ q, idx, userAnswer, correctAnswer: q.answer, status: 'wrong' });
+      }
+    });
+
+    const totalPoints = correct - wrong;
+    const maxPoints = currentQuestions.length;
+
+    showScreen('result');
+
+    dom.resultTitle.textContent = 'Twój wynik';
+    dom.correctCount.textContent = correct;
+    dom.wrongCount.textContent = wrong;
+    dom.emptyCount.textContent = empty;
+    dom.totalPoints.textContent = totalPoints;
+    dom.maxPoints.textContent = maxPoints;
+
+    const pct = Math.round((totalPoints / maxPoints) * 100);
+    dom.resultPercent.textContent = `${pct}%`;
+
+    dom.scoreCircle.textContent = `${totalPoints}/${maxPoints}`;
+    dom.scoreCircle.className = 'score-circle ' + (totalPoints >= 0 ? 'pass' : 'fail');
+
+    dom.reviewContent.innerHTML = '<h3>Szczegółowy przegląd</h3>';
+    results.forEach(r => {
+      const div = document.createElement('div');
+      div.className = `review-item ${r.status}`;
+      let answerHtml = '';
+      if (r.status === 'correct') {
+        answerHtml = `<span class="correct">${r.userAnswer}</span> &mdash; poprawnie`;
+      } else if (r.status === 'wrong') {
+        answerHtml = `<span class="user-wrong">${r.userAnswer}</span> <span class="correct">${r.correctAnswer}</span> &mdash; błędnie`;
+      } else {
+        answerHtml = `<span class="correct">${r.correctAnswer}</span> &mdash; brak odpowiedzi`;
+      }
+      div.innerHTML = `
+        <div class="r-num">Pytanie ${r.idx + 1}</div>
+        <div class="r-text">${escapeHtml(r.q.text)}</div>
+        <div class="r-answer">${answerHtml}</div>
+      `;
+      dom.reviewContent.appendChild(div);
+    });
+  }
+
+  function toggleReview() {
+    dom.reviewContent.style.display =
+      dom.reviewContent.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function backToUpload() {
+    showScreen('upload');
+    studyQuestions = [];
+    studyIndex = 0;
+    currentQuestions = [];
+    dom.fileInput.value = '';
+    window.scrollTo(0, 0);
+  }
+
+  function escapeHtml(str) {
     const div = document.createElement('div');
-    div.className = `review-item ${r.status}`;
-    let answerHtml = '';
-    if (r.status === 'correct') {
-      answerHtml = `<span class="correct">${r.userAnswer}</span> &mdash; poprawnie`;
-    } else if (r.status === 'wrong') {
-      answerHtml = `<span class="user-wrong">${r.userAnswer}</span> <span class="correct">${r.correctAnswer}</span> &mdash; błędnie`;
-    } else {
-      answerHtml = `<span class="correct">${r.correctAnswer}</span> &mdash; brak odpowiedzi`;
-    }
-    div.innerHTML = `
-      <div class="r-num">Pytanie ${r.idx + 1}</div>
-      <div class="r-text">${escapeHtml(r.q.text)}</div>
-      <div class="r-answer">${answerHtml}</div>
-    `;
-    reviewContainer.appendChild(div);
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // ---- Event listeners ----
+  dom.submitBtn.addEventListener('click', finishTest);
+  dom.studyNextBtn.addEventListener('click', nextStudyQuestion);
+  document.querySelector('.review-toggle button').addEventListener('click', toggleReview);
+
+  document.querySelectorAll('[data-mode]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.dataset.mode === 'exam') startExam();
+      else startStudy();
+    });
   });
-}
 
-function toggleReview() {
-  const el = document.getElementById('review-content');
-  el.style.display = el.style.display === 'block' ? 'none' : 'block';
-}
+  document.querySelectorAll('[data-action="back"]').forEach(btn => {
+    btn.addEventListener('click', backToUpload);
+  });
 
-function backToUpload() {
-  document.getElementById('upload-screen').style.display = 'flex';
-  document.getElementById('test-screen').style.display = 'none';
-  document.getElementById('result-screen').style.display = 'none';
-  document.getElementById('fileInput').value = '';
-  window.scrollTo(0, 0);
-}
-
-function escapeHtml(str) {
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
-}
+  dom.questions.addEventListener('change', updateProgress);
+})();
 </script>
 
 </body>
