@@ -2,6 +2,9 @@
 
 Prosta aplikacja do tworzenia i przeprowadzania testów typu tak/nie. Użytkownik przesyła plik z pytaniami w określonym formacie, a aplikacja generuje interaktywny test, po którym wyświetla wynik.
 
+Strona:
+https://sharens.github.io/html_quiz_yes-no/
+
 ## Kontekst
 
 Projekt został stworzony jako narzędzie do szybkiego sprawdzania wiedzy w formacie tak/nie. Idealny do quizów szkolnych, szkoleniowych lub szybkich ankiet. Aplikacja działa całkowicie w przeglądarce – nie wymaga serwera ani bazy danych.
